@@ -25,7 +25,7 @@ public class BoatInventoryHelper {
     private final static int PrevButtonSlotIndex = 54 - 9;
     private final static int NextButtonSlotIndex = 54 - 1;
 
-    public enum OpenResult { Success, NotInBoat, NoInventory }
+    public enum OpenResult { Success, NotInBoat, NoInventory, Used }
 
     private class InventoryInfo {
         public UUID boatId;
@@ -45,6 +45,19 @@ public class BoatInventoryHelper {
         _inventoryId = new NamespacedKey(plugin, "boat_inventory");
         _inventoryPageId = new NamespacedKey(plugin, "boat_inventory_page");
         _config = config;
+    }
+
+    public void closeInventory(Entity vehicle) {
+        if (vehicle == null || vehicle.getType() != EntityType.BOAT)
+            return;
+
+        Boat boat = (Boat)vehicle;
+        if (_config.getInventorySize(boat.getWoodType()) <= 0)
+            return;
+
+        InventoryInfo info = _boatToInventory.get(vehicle.getUniqueId());
+        if (info != null)
+            info.inventory.close();
     }
 
     public boolean clickInventory(Inventory inventory, int clickedSlotIndex) {
@@ -87,6 +100,8 @@ public class BoatInventoryHelper {
 
             _boatToInventory.put(boat.getUniqueId(), info);
             _inventories.put(info.inventory, info);
+        } else if (!info.inventory.getViewers().isEmpty()) {
+            return info.inventory.getViewers().get(0) != player ? OpenResult.Used : OpenResult.Success;
         }
 
         loadInventory(info);
@@ -240,6 +255,8 @@ public class BoatInventoryHelper {
         if (info != null) {
             saveInventoryToCache(info);
             pages = info.pages;
+
+            info.inventory.close();
         } else {
             byte[] inventoryData = vehicle.getPersistentDataContainer().get(_inventoryId, PersistentDataType.BYTE_ARRAY);
 

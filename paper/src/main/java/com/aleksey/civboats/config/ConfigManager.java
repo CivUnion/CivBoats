@@ -13,6 +13,7 @@ public class ConfigManager {
     }
 
     private Logger _logger;
+
     private BoatInfo _defaultBoat;
     private HashMap<TreeSpecies, BoatInfo> _boats;
 
@@ -21,6 +22,11 @@ public class ConfigManager {
         return info != null
                 ? info
                 : _defaultBoat;
+    }
+
+    private boolean _allowRightClickInteract;
+    public boolean isAllowRightClickInteract() {
+        return _allowRightClickInteract;
     }
 
     public int getInventorySize(TreeSpecies wood) {
@@ -32,6 +38,8 @@ public class ConfigManager {
     }
 
     public void load(FileConfiguration file) {
+        _allowRightClickInteract = file.getBoolean("AllowRightClickInteract", false);
+
         _defaultBoat = new BoatInfo();
         _defaultBoat.inventorySize = adjustInventorySize(file.getInt("DefaultBoatInventory", 0));
 

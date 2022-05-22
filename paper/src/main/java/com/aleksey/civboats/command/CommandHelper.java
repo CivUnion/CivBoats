@@ -21,6 +21,7 @@ public class CommandHelper {
         switch(result) {
             case NotInBoat -> player.sendMessage(ChatColor.YELLOW + "You are not in boat!");
             case NoInventory -> player.sendMessage(ChatColor.YELLOW + "This boat does not have inventory.");
+            case Used -> player.sendMessage(ChatColor.YELLOW + "This inventory is already in use by someone else.");
         }
 
         return true;

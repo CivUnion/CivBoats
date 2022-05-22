@@ -30,7 +30,7 @@ public class CivBoats extends JavaPlugin {
         _inventoryHelper = new BoatInventoryHelper(this, _config);
         _commandHelper = new CommandHelper(_inventoryHelper);
 
-        getServer().getPluginManager().registerEvents(new BoatListener(_inventoryHelper), this);
+        getServer().getPluginManager().registerEvents(new BoatListener(_inventoryHelper, _config.isAllowRightClickInteract()), this);
     }
 
     @Override

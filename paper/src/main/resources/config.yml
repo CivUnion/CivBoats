@@ -1,3 +1,6 @@
+# If True then the player can Right Click + Sneak a boat to open the inventory
+AllowRightClickInteract: true
+
 # Inventory size that applies to all boats by default
 # Use 0 if the boat doesn't have inventory
 DefaultBoatInventory: 0
