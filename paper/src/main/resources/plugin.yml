@@ -1,0 +1,9 @@
+name: ${name}
+main: com.aleksey.civboats.CivBoats
+version: ${version}
+authors: [Aleksey-Terzi, Aidan]
+description: 'Boats with inventory'
+api-version: 1.18
+commands:
+    boat:
+        description: Opens boat inventory.
