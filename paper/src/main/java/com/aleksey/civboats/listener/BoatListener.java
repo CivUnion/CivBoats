@@ -1,5 +1,6 @@
 package com.aleksey.civboats.listener;
 
+import com.aleksey.civboats.config.ConfigManager;
 import com.aleksey.civboats.engine.BoatInventoryHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -17,11 +18,11 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 public class BoatListener implements Listener {
-    private final boolean _allowRightClickInteract;
+    private final ConfigManager _config;
     private final BoatInventoryHelper _inventoryHelper;
 
-    public BoatListener(BoatInventoryHelper inventoryHelper, boolean allowRightClickInteract) {
-        _allowRightClickInteract = allowRightClickInteract;
+    public BoatListener(BoatInventoryHelper inventoryHelper, ConfigManager config) {
+        _config = config;
         _inventoryHelper = inventoryHelper;
     }
 
@@ -40,7 +41,7 @@ public class BoatListener implements Listener {
         Player player = event.getPlayer();
         Entity vehicle = event.getRightClicked();
 
-        if (_allowRightClickInteract
+        if (_config.isAllowRightClickInteract()
                 && event.getHand().equals(EquipmentSlot.HAND)
                 && player.isSneaking()
                 && vehicle.getPassengers().isEmpty()

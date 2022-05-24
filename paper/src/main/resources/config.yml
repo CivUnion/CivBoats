@@ -2,13 +2,13 @@
 AllowRightClickInteract: true
 
 # Inventory size that applies to all boats by default
+# Inventory size must be multiple of 9 and less than 256
 # Use 0 if the boat doesn't have inventory
 DefaultBoatInventory: 0
 
 # Allowed boat types: OAK, REDWOOD, BIRCH, JUNGLE, ACACIA, DARK_OAK
 Boats:
   OAK:
-    # Inventory size must be multiple of 9 and less than 256
     Inventory: 54
   BIRCH:
     Inventory: 108

@@ -14,7 +14,7 @@ gradle.buildFinished {
 
 allprojects {
 	group = "com.aleksey.civboats"
-	version = "1.0.1-SNAPSHOT"
+	version = "1.0.2-SNAPSHOT"
 	description = "CivBoats"
 }
 
