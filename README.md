@@ -1,4 +1,4 @@
-# CivBoats:
+# CivVehicles:
 
 Adds boats with inventory.
 

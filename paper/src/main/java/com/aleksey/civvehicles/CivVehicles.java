@@ -1,16 +1,16 @@
-package com.aleksey.civboats;
+package com.aleksey.civvehicles;
 
-import com.aleksey.civboats.command.CommandHelper;
-import com.aleksey.civboats.config.ConfigManager;
-import com.aleksey.civboats.engine.BoatInventoryHelper;
-import com.aleksey.civboats.listener.BoatListener;
+import com.aleksey.civvehicles.command.CommandHelper;
+import com.aleksey.civvehicles.config.ConfigManager;
+import com.aleksey.civvehicles.engine.BoatInventoryHelper;
+import com.aleksey.civvehicles.listener.BoatListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CivBoats extends JavaPlugin {
-    private static CivBoats _instance;
-    public static CivBoats getInstance() {
+public class CivVehicles extends JavaPlugin {
+    private static CivVehicles _instance;
+    public static CivVehicles getInstance() {
         return _instance;
     }
 

@@ -1,5 +1,5 @@
 name: ${pluginName}
-main: com.aleksey.civboats.CivBoats
+main: com.aleksey.civvehicles.CivVehicles
 version: ${version}
 authors: [Aleksey-Terzi, Aidan]
 description: ${description}

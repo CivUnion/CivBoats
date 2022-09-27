@@ -1,7 +1,7 @@
-package com.aleksey.civboats.listener;
+package com.aleksey.civvehicles.listener;
 
-import com.aleksey.civboats.config.ConfigManager;
-import com.aleksey.civboats.engine.BoatInventoryHelper;
+import com.aleksey.civvehicles.config.ConfigManager;
+import com.aleksey.civvehicles.engine.BoatInventoryHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

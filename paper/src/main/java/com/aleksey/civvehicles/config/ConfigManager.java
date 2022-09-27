@@ -1,4 +1,4 @@
-package com.aleksey.civboats.config;
+package com.aleksey.civvehicles.config;
 
 import org.bukkit.TreeSpecies;
 import org.bukkit.configuration.ConfigurationSection;

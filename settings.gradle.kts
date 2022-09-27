@@ -7,4 +7,4 @@ pluginManagement {
 
 include(":paper")
 
-project(":paper").name = rootProject.name + "-paper"
+project(":paper").name = rootProject.name

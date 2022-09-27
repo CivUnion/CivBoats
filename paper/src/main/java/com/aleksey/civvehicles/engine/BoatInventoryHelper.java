@@ -1,6 +1,6 @@
-package com.aleksey.civboats.engine;
+package com.aleksey.civvehicles.engine;
 
-import com.aleksey.civboats.config.ConfigManager;
+import com.aleksey.civvehicles.config.ConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;

@@ -1,6 +1,6 @@
-package com.aleksey.civboats.command;
+package com.aleksey.civvehicles.command;
 
-import com.aleksey.civboats.engine.BoatInventoryHelper;
+import com.aleksey.civvehicles.engine.BoatInventoryHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
