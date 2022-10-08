@@ -1,7 +1,7 @@
-package com.aleksey.civboats.listener;
+package com.aleksey.civvehicles.listener;
 
-import com.aleksey.civboats.config.ConfigManager;
-import com.aleksey.civboats.engine.BoatInventoryHelper;
+import com.aleksey.civvehicles.config.ConfigManager;
+import com.aleksey.civvehicles.engine.BoatInventoryHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -40,7 +40,7 @@ public class BoatListener implements Listener {
         Player player = event.getPlayer();
         Entity vehicle = event.getRightClicked();
 
-        if (_config.isAllowRightClickInteract()
+        if (_config.isAllowBoatRightClickInteract()
                 && event.getHand().equals(EquipmentSlot.HAND)
                 && player.isSneaking()
                 && vehicle.getPassengers().isEmpty()

@@ -1,14 +1,29 @@
-# If True then the player can Right Click + Sneak a boat to open the inventory
-AllowRightClickInteract: true
-
-# Inventory size that applies to all boats by default
-# Inventory size must be multiple of 9 and less than 256
-# Use 0 if the boat doesn't have inventory
-DefaultBoatInventory: 0
-
 # Allowed boat types: OAK, REDWOOD, BIRCH, JUNGLE, ACACIA, DARK_OAK
 Boats:
+  Default:
+    # If True then the player can Right Click + Sneak a boat to open the inventory
+    # This setting can be specified only for Default boat
+    AllowRightClickInteract: true
+    # Inventory size that applies to all boats by default
+    # Inventory size must be multiple of 9 and less than 256
+    # Use 0 if the boat doesn't have inventory
+    Inventory: 0
   OAK:
     Inventory: 54
   BIRCH:
     Inventory: 108
+
+Minecarts:
+  Default:
+    # Multiplier to vanilla speed (8 m/s)
+    #If the multiplier is 1.0 then the vanilla speed if used
+    MaxSpeed: 1.5
+    # Multiplier to vanilla speed when minecart is exposed to sky
+    MaxSpeedFromSky: 3.0
+    # When the value is True then max speed from the sky will also depend
+    # on the level of  getLightFromSky and default MaxSpeed
+    # For example, if MaxSpeed = 1.5, MaxSpeedFromSky = 3.0 and getLightFromSky() = 5
+    # then currentMaxSpeed = 1.5 + (3.0 - 1.5) * (5 / 15) = 2.0
+    # 15 here is the max light from sky
+    MaxSpeedFromSkyVariable: true
+

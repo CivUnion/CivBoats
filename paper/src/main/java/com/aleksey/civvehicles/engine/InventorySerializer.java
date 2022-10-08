@@ -1,10 +1,9 @@
-package com.aleksey.civboats.engine;
+package com.aleksey.civvehicles.engine;
 
 import org.bukkit.inventory.ItemStack;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 public class InventorySerializer {
     private final static int RowLength = 9;

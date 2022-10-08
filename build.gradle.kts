@@ -1,8 +1,8 @@
 plugins {
     `java-library`
+	`maven-publish`
 }
 
-// Remove the root build directory
 gradle.buildFinished {
 	project.buildDir.deleteRecursively()
 }
@@ -15,9 +15,12 @@ allprojects {
 
 subprojects {
 	apply(plugin = "java-library")
+	apply(plugin = "maven-publish")
 
 	java {
 		toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+		withJavadocJar()
+		withSourcesJar()
 	}
 
 	tasks {
@@ -29,6 +32,23 @@ subprojects {
 			filteringCharset = Charsets.UTF_8.name()
 			filesMatching("**/plugin.yml") {
 				expand( project.properties )
+			}
+		}
+	}
+
+	publishing {
+		repositories {
+			maven {
+				url = uri("https://nexus.civunion.com/repository/maven-releases/")
+				credentials {
+					username = System.getenv("REPO_USERNAME")
+					password = System.getenv("REPO_PASSWORD")
+				}
+			}
+		}
+		publications {
+			register<MavenPublication>("main") {
+				from(components["java"])
 			}
 		}
 	}

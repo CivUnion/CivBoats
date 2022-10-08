@@ -1,6 +1,6 @@
-package com.aleksey.civboats.engine;
+package com.aleksey.civvehicles.engine;
 
-import com.aleksey.civboats.config.ConfigManager;
+import com.aleksey.civvehicles.config.ConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
@@ -52,7 +52,7 @@ public class BoatInventoryHelper {
             return;
 
         Boat boat = (Boat)vehicle;
-        if (_config.getInventorySize(boat.getWoodType()) <= 0)
+        if (_config.getBoatInventorySize(boat.getWoodType()) <= 0)
             return;
 
         InventoryInfo info = _boatToInventory.get(vehicle.getUniqueId());
@@ -87,7 +87,7 @@ public class BoatInventoryHelper {
             return OpenResult.NotInBoat;
 
         Boat boat = (Boat)vehicle;
-        if (_config.getInventorySize(boat.getWoodType()) <= 0)
+        if (_config.getBoatInventorySize(boat.getWoodType()) <= 0)
             return OpenResult.NoInventory;
 
         InventoryInfo info = _boatToInventory.get(vehicle.getUniqueId());
@@ -112,7 +112,7 @@ public class BoatInventoryHelper {
     }
 
     private InventoryInfo createInventoryInfo(Boat boat, byte[] inventoryData, Integer pageIndex) {
-        int inventorySize = _config.getInventorySize(boat.getWoodType());
+        int inventorySize = _config.getBoatInventorySize(boat.getWoodType());
         InventoryInfo info = new InventoryInfo();
         info.boatId = boat.getUniqueId();
         info.inventory = createInventory(inventorySize);
@@ -178,7 +178,7 @@ public class BoatInventoryHelper {
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
-        info.inventory.setItem(startSlot++, createItem(Material.OAK_SIGN, pageIndex + 1, "Page " + Integer.toString(pageIndex + 1)));
+        info.inventory.setItem(startSlot++, createItem(Material.OAK_SIGN, pageIndex + 1, "Page " + (pageIndex + 1)));
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
         info.inventory.setItem(startSlot++, createItem(Material.WHITE_STAINED_GLASS_PANE, 1, ""));
@@ -264,7 +264,7 @@ public class BoatInventoryHelper {
                 return;
 
             Boat boat = (Boat)vehicle;
-            int inventorySize = _config.getInventorySize(boat.getWoodType());
+            int inventorySize = _config.getBoatInventorySize(boat.getWoodType());
 
             pages = InventorySerializer.deserialize(inventoryData, inventorySize);
         }
