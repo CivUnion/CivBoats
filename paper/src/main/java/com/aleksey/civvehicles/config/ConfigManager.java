@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class ConfigManager {
-    private class BoatInfo {
-        public int inventorySize;
-    }
+    private static final double MAX_SPEED_RATIO = 0.4;
+    private static final double MAX_LIGHT = 15;
 
-    private Logger _logger;
+    private final Logger _logger;
 
     private BoatInfo _defaultBoat;
     private HashMap<TreeSpecies, BoatInfo> _boats;
+    private MinecartInfo _defaultMinecart;
 
     private BoatInfo getBoat(TreeSpecies wood) {
         BoatInfo info = _boats.get(wood);
@@ -24,13 +24,26 @@ public class ConfigManager {
                 : _defaultBoat;
     }
 
-    private boolean _allowRightClickInteract;
-    public boolean isAllowRightClickInteract() {
-        return _allowRightClickInteract;
+    public boolean isAllowBoatRightClickInteract() {
+        return _defaultBoat.allowRightClickInteract;
     }
 
-    public int getInventorySize(TreeSpecies wood) {
+    public int getBoatInventorySize(TreeSpecies wood) {
         return getBoat(wood).inventorySize;
+    }
+
+    public double getMinecartMaxSpeed(byte lightFromSky) {
+        if (lightFromSky == 0 || _defaultMinecart.maxSpeed == _defaultMinecart.maxSpeedFromSky) {
+            return _defaultMinecart.maxSpeed * MAX_SPEED_RATIO;
+        }
+
+        if (!_defaultMinecart.maxSpeedFromSkyVariable || _defaultMinecart.maxSpeedFromSky < _defaultMinecart.maxSpeed) {
+            return _defaultMinecart.maxSpeedFromSky;
+        }
+
+        double increase = (_defaultMinecart.maxSpeedFromSky - _defaultMinecart.maxSpeed) * lightFromSky / MAX_LIGHT;
+
+        return _defaultMinecart.maxSpeed + increase;
     }
 
     public ConfigManager(Logger logger) {
@@ -38,17 +51,21 @@ public class ConfigManager {
     }
 
     public void load(FileConfiguration file) {
-        _allowRightClickInteract = file.getBoolean("AllowRightClickInteract", false);
-
-        _defaultBoat = new BoatInfo();
-        _defaultBoat.inventorySize = adjustInventorySize(file.getInt("DefaultBoatInventory", 0));
-
-        readBoats(file.getConfigurationSection("Boats"));
+        readBoatSettings(file);
+        readMinecartSettings(file);
     }
 
-    private void readBoats(ConfigurationSection config) {
+    private void readBoatSettings(FileConfiguration file) {
+        _defaultBoat = new BoatInfo();
+        _defaultBoat.allowRightClickInteract = file.getBoolean("Boats.Default.AllowRightClickInteract", false);
+        _defaultBoat.inventorySize = adjustBoatInventorySize(file.getInt("Boats.Default.BoatInventory", 0));
+
         _boats = new HashMap<>();
 
+        readBoatTypes(file.getConfigurationSection("Boats"));
+    }
+
+    private void readBoatTypes(ConfigurationSection config) {
         if (config == null)
             return;
 
@@ -65,6 +82,9 @@ public class ConfigManager {
                 case "JUNGLE" -> wood = TreeSpecies.JUNGLE;
                 case "ACACIA" -> wood = TreeSpecies.ACACIA;
                 case "DARK_OAK" -> wood = TreeSpecies.DARK_OAK;
+                case "DEFAULT" -> {
+                    continue;
+                }
                 default -> {
                     _logger.warning("Unsupported boat type: " + key);
                     continue;
@@ -74,15 +94,22 @@ public class ConfigManager {
             ConfigurationSection boatConfig = config.getConfigurationSection(key);
 
             BoatInfo info = new BoatInfo();
-            info.inventorySize = adjustInventorySize(boatConfig.getInt("Inventory", 0));
+            info.inventorySize = adjustBoatInventorySize(boatConfig.getInt("Inventory", 0));
 
             _boats.put(wood, info);
         }
     }
 
-    private static int adjustInventorySize(int size) {
+    private static int adjustBoatInventorySize(int size) {
         return size > 255
                 ? 255
                 : (size / 9) * 9;
+    }
+
+    private void readMinecartSettings(FileConfiguration file) {
+        _defaultMinecart = new MinecartInfo();
+        _defaultMinecart.maxSpeed = file.getDouble("Minecarts.Default.MaxSpeed", 1.0);
+        _defaultMinecart.maxSpeedFromSky = file.getDouble("Minecarts.Default.MaxSpeedFromSky", 1.0);
+        _defaultMinecart.maxSpeedFromSkyVariable = file.getBoolean("Minecarts.Default.MaxSpeedFromSkyVariable", false);
     }
 }

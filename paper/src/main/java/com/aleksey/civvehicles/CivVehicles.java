@@ -4,8 +4,10 @@ import com.aleksey.civvehicles.command.CommandHelper;
 import com.aleksey.civvehicles.config.ConfigManager;
 import com.aleksey.civvehicles.engine.BoatInventoryHelper;
 import com.aleksey.civvehicles.listener.BoatListener;
+import com.aleksey.civvehicles.listener.MinecartListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CivVehicles extends JavaPlugin {
@@ -30,7 +32,10 @@ public class CivVehicles extends JavaPlugin {
         _inventoryHelper = new BoatInventoryHelper(this, _config);
         _commandHelper = new CommandHelper(_inventoryHelper);
 
-        getServer().getPluginManager().registerEvents(new BoatListener(_inventoryHelper, _config), this);
+        PluginManager manager = getServer().getPluginManager();
+
+        manager.registerEvents(new BoatListener(_inventoryHelper, _config), this);
+        manager.registerEvents(new MinecartListener(_config), this);
     }
 
     @Override

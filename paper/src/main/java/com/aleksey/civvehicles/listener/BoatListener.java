@@ -40,7 +40,7 @@ public class BoatListener implements Listener {
         Player player = event.getPlayer();
         Entity vehicle = event.getRightClicked();
 
-        if (_config.isAllowRightClickInteract()
+        if (_config.isAllowBoatRightClickInteract()
                 && event.getHand().equals(EquipmentSlot.HAND)
                 && player.isSneaking()
                 && vehicle.getPassengers().isEmpty()
